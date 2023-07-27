@@ -25,6 +25,7 @@ let instance = null;
 let state = null;
 
 function render(props = {}) {
+  if (instance) return;
   const { container } = props;
   // router = new VueRouter({
   //   base: window.__POWERED_BY_QIANKUN__ ? "/vue" : "/",
@@ -34,7 +35,8 @@ function render(props = {}) {
 
   const router = createRouter({
     base: window.__POWERED_BY_QIANKUN__ ? '/vue3' : '/',
-    history: createWebHistory(import.meta.env.BASE_URL),
+    // history: createWebHistory(import.meta.env.BASE_URL),
+    history: createWebHistory('/vue3'),
     routes: routes,
   });
 
@@ -80,14 +82,14 @@ export async function bootstrap(props) {
 
 export async function mount(props) {
   console.log('子应用(vue) 挂载(mount) props=>', props);
-  storeTest(props);
+  // storeTest(props);
   render(props);
 }
 
 export async function unmount() {
   console.log('这是vue1 执行了 unmount');
-  instance.$destroy();
-  instance.$el.innerHTML = '';
+  instance.$destroy?.();
+  // instance.$el.innerHTML = '';
   instance = null;
-  router = null;
+  // router = null;
 }
